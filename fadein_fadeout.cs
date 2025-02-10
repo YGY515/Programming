@@ -7,7 +7,7 @@ IEnumerator Fadeout() // 페이드아웃
         {
             alpha += 0.005f;
             image.color = new Color(0, 0, 0, alpha);
-            yield return new WaitForSeconds(0.1f);
+            yield return null;
         }
             text.gameObject.SetActive(true);  // 패널값을 조정할 텍스트
             StartCoroutine(FadeTextToFull()); // 텍스트 깜빡거리기
@@ -50,7 +50,7 @@ IEnumerator FadeIn() // 추가적으로 페이드 인
         {
             alpha -= 0.03f;
             image.color = new Color(0, 0, 0, alpha);
-            yield return new WaitForSeconds(0.1f);
+            yield return null;
         }
         image.gameObject.SetActive(false);
     }

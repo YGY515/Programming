@@ -7,7 +7,7 @@ IEnumerator Fadeout() // 페이드아웃
         {
             alpha += 0.005f;
             image.color = new Color(0, 0, 0, alpha);
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
             text.gameObject.SetActive(true);  // 패널값을 조정할 텍스트
             StartCoroutine(FadeTextToFull()); // 텍스트 깜빡거리기
@@ -22,7 +22,7 @@ IEnumerator Fadeout() // 페이드아웃
         while (text.color.a < 1.0f)
         {
             text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a + 0.02f);
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
         StartCoroutine(FadeTextToZero());
     }
@@ -33,7 +33,7 @@ IEnumerator Fadeout() // 페이드아웃
         while (text.color.a > 0.0f)
         {
             text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a - 0.02f);
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
         StartCoroutine(FadeTextToFull());
     }
@@ -50,7 +50,7 @@ IEnumerator FadeIn() // 추가적으로 페이드 인
         {
             alpha -= 0.03f;
             image.color = new Color(0, 0, 0, alpha);
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
         image.gameObject.SetActive(false);
     }

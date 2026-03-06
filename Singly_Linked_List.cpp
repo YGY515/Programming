@@ -1,4 +1,4 @@
-// 자료구조 구현 - 단방향 연결리스트
+// 자료구조 구현 공부 - 단방향 연결리스트
 #include <iostream>
 using namespace std;
 
@@ -21,7 +21,7 @@ void addNode(int m)
     }
     else
     {
-        // 노트 마지막에 추가로 넣는 경우
+        // 노드 마지막에 추가로 넣는 경우
         Node* end = node;
         while(end->next != NULL)
         {
@@ -29,7 +29,7 @@ void addNode(int m)
         }
 
         // 이제 end는 마지막 노드가 된다.
-        // 입력받은 값을 새 노드로 만들어 end 노드 뒤에 이어붙인다.
+        // 따라서 입력 받은 값을 새 노드로 만들어 end 노드 뒤에 이어 붙인다.
         Node* newNode = new Node();
         newNode->value = m;
         newNode->next = NULL;
@@ -102,6 +102,5 @@ int main()
     deleteNode(D);
     
     printNode();
-    
     return 0;
 }

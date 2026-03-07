@@ -1,5 +1,8 @@
 // 자료구조 구현 공부 - 단방향 연결리스트
+// 구현한 기능: 입력받은 노드 추가와 삭제, 노드 순서대로 출력, 노드 거꾸로 출력
+// 노드를 거꾸로 출력할 때는 스택과 재귀 함수를 활용함.
 #include <iostream>
+#include <stack>
 using namespace std;
 
 struct Node
@@ -12,7 +15,6 @@ Node* node = NULL;
 
 void addNode(int m)
 {
-    // 처음으로 값을 넣는 경우
     if (node == NULL)
     {
         node = new Node();
@@ -21,15 +23,12 @@ void addNode(int m)
     }
     else
     {
-        // 노드 마지막에 추가로 넣는 경우
         Node* end = node;
         while(end->next != NULL)
         {
             end = end->next;
         }
 
-        // 이제 end는 마지막 노드가 된다.
-        // 따라서 입력 받은 값을 새 노드로 만들어 end 노드 뒤에 이어 붙인다.
         Node* newNode = new Node();
         newNode->value = m;
         newNode->next = NULL;
@@ -37,46 +36,49 @@ void addNode(int m)
     }
 }
 
+
 void deleteNode(int d)
 {
-    if (node == NULL) 
+    Node* target = node;
+    Node* prev = NULL;
+    
+    if (target == NULL) 
     {
-        cout << "node가 비어있습니다.\n";
+        cout << "\n노드가 비어있습니다.\n";
         return;
     }
     
-    Node* target = node;
-    Node* prev = NULL;
     while(target != NULL && target->value != d)
     {
         prev = target;
         target = target->next;
     }
 
-    if (target == NULL)
+    if (target == NULL) 
     {
-        cout << "\nnode에서 지우려는 " << d << " 값을 찾지 못했습니다.\n";
+        cout << "\n삭제할 값을 찾지 못했습니다.\n";
         return;
     }
-    
+
     if (prev == NULL)
     {
-        // target이 첫 번째 노드였을 경우, 노드의 head를 다음 노드로 옮긴다.
+        // 지울 값이 첫번째 노드였을 경우
         node = node->next;
     }
     else
     {
-        // target이 중간이나 마지막이었을 경우, 이전 노드를 target 다음 노드에 이어붙인다.
         prev->next = target->next;
-    }  
+    }
 
     delete target;
 }
 
-void printNode()
+
+void print()
 {
     Node* print = node;
     cout << "현재 노드: ";
+
     while(print != NULL)
     {
         cout << print->value << " ";
@@ -84,23 +86,62 @@ void printNode()
     }
 }
 
+
+// 연결 리스트를 거꾸로 출력하는 방법 1. 스택 활용
+void printReverse1()
+{
+    Node* print = node;
+    stack<int> s;
+    
+    while(print != NULL)
+    {
+        s.push(print->value);
+        print = print->next;
+    }
+    
+    while(!s.empty())
+    {
+        cout << s.top() << " ";
+        s.pop();
+    }
+}
+
+
+// 연결 리스트를 거꾸로 출력하는 방법 2. 재귀 활용
+void printReverse2(Node* node)
+{
+    if (node ==  NULL) return;
+    printReverse2(node->next);
+    cout << node->value << " ";
+}
+
+
 int main() 
 {
     int N;
     cin >> N;
-    while(N--)
+    for(int i = 0; i < N; i++)
     {
         int M;
         cin >> M;
         addNode(M);
     }
 
-    printNode();
-
+    cout << "완성된 노드\n";
+    print();
+    
     int D;
+    cout << "\n\n어떤 요소를 지우시겠습니까? ";
     cin >> D;
     deleteNode(D);
+
+    cout << "\n지우고 난 후의 노드\n";
+    print();
+
+    cout << "\n\n스택을 활용해 거꾸로 출력\n";
+    printReverse1();
+    cout << "\n\n재귀를 이용해 거꾸로 출력\n";
+    printReverse2(node);
     
-    printNode();
     return 0;
 }
